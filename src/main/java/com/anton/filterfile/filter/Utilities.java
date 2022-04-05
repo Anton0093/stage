@@ -4,10 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class Utilities {
 
   public final static String REGEX_AIRPORT = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
+  private final static String REGEX_NUMBERS = "[0-9]+";
 
   private static final Properties PROPERTIES = new Properties();
   private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
@@ -39,6 +42,32 @@ public final class Utilities {
       System.out.println(e.getMessage());
     }
     return Integer.parseInt(PROPERTIES.getProperty("defaultValue"));
+  }
+
+  public static int getNumberOfColumn(String[] args) {
+    int numOfColumn;
+    if (args.length == 0) {
+      numOfColumn = defaultNumberOfColumn();
+    } else {
+      if (onlyDigits(args[0])) {
+        numOfColumn = Integer.parseInt(args[0]);
+      } else {
+        throw new NumberFormatException("Столбец должен являться числом");
+      }
+    }
+
+    if (numOfColumn < 1 || numOfColumn > 14) {
+      throw new NumberFormatException("Диапазон столбца должен быть от 1 до 14");
+    }
+
+    return numOfColumn;
+  }
+
+  private static boolean onlyDigits(String str) {
+    Pattern p = Pattern.compile(REGEX_NUMBERS);
+    Matcher m = p.matcher(str);
+
+    return m.matches();
   }
 
 }
