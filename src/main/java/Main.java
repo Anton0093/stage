@@ -11,7 +11,11 @@ import java.util.Scanner;
 public class Main {
 
   public static void main(String[] args) {
+
     int numOfColumn = args.length == 0 ?  defaultNumberOfColumn() : Integer.parseInt(args[0]);
+    if (numOfColumn < 1 || numOfColumn > 14) {
+        throw new NumberFormatException("Диапазон столбца должен быть от 1 до 14");
+    }
 
     Scanner scanner = new Scanner(System.in);
     System.out.println("Введите строку: ");
