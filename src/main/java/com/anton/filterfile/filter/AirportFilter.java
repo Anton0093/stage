@@ -15,8 +15,6 @@ import java.util.stream.Collectors;
 
 public class AirportFilter extends Filter {
 
-//  private static final String PATH = "/Users/antontamarov/TestTask/src/main/resources/airports.csv";
-
   @Override
   public Map<Long, String> iterableFileInMap(int numberOfColumn) {
     Map<Long, String> fieldMap = new LinkedHashMap<>();
@@ -33,7 +31,7 @@ public class AirportFilter extends Filter {
         if (line == null) {
           break;
         }
-        String[] fields = line.split(REGEX_AIRPORT);
+        String[] fields = line.split(REGEX_AIRPORT, -1);
         fieldMap.put(pointer, fields[numberOfColumn - 1]);
       }
     } catch (IOException e) {

@@ -22,7 +22,7 @@ public class Main {
     AirportFilter airportFilter = new AirportFilter();
     Map<Long, String> map = airportFilter.iterableFileInMap(numOfColumn);
 
-    long first = System.currentTimeMillis();
+    long startFilterMethodMillis = System.currentTimeMillis();
     List<Airport> filterOfColumnList = new ArrayList<>();
 
     try {
@@ -31,9 +31,9 @@ public class Main {
     } catch (FileNotFoundException e) {
       System.out.println(e.getMessage());
     }
-    long end = System.currentTimeMillis() - first;
+    long endFilterMethodMillis = System.currentTimeMillis() - startFilterMethodMillis;
 
     System.out.println("Количество найденных строк: " + filterOfColumnList.size() + ". "
-        + "Время, затраченное на поиск: " + end + "мс.");
+        + "Время, затраченное на поиск: " + endFilterMethodMillis + "мс.");
   }
 }

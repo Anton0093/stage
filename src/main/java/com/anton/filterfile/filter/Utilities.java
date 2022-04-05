@@ -16,6 +16,7 @@ public final class Utilities {
   private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
   private static final InputStream INPUT_STREAM = CLASS_LOADER.getResourceAsStream(
       "application.yaml");
+
   private static final File JAR_FILE = new File(
       Utilities.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 
@@ -44,20 +45,29 @@ public final class Utilities {
     return Integer.parseInt(PROPERTIES.getProperty("defaultValue"));
   }
 
-  public static int getNumberOfColumn(String[] args) {
-    int numOfColumn;
-    if (args.length == 0) {
-      numOfColumn = defaultNumberOfColumn();
-    } else {
-      if (onlyDigits(args[0])) {
-        numOfColumn = Integer.parseInt(args[0]);
-      } else {
-        throw new NumberFormatException("Столбец должен являться числом");
-      }
-    }
+  public static int getNumberOfColumn(String[] args) throws NumberFormatException {
+    int numOfColumn = 0;
 
-    if (numOfColumn < 1 || numOfColumn > 14) {
-      throw new NumberFormatException("Диапазон столбца должен быть от 1 до 14");
+    try {
+      if (args.length == 0) {
+        numOfColumn = defaultNumberOfColumn();
+      } else {
+        if (onlyDigits(args[0])) {
+          numOfColumn = Integer.parseInt(args[0]);
+        } else {
+          throw new NumberFormatException(
+              "Столбец не является числом, устанавливается значение по умолчанию (2)");
+        }
+      }
+
+      if (numOfColumn < 1 || numOfColumn > 14) {
+        throw new NumberFormatException(
+            "Диапазон столбца не от 1 до 14, устанавливается значение по умолчанию (2)");
+      }
+
+    } catch (NumberFormatException formatException) {
+      numOfColumn = defaultNumberOfColumn();
+      System.out.println(formatException.getMessage());
     }
 
     return numOfColumn;

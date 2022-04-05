@@ -1,5 +1,7 @@
 package com.anton.filterfile.pojo;
 
+import static com.anton.filterfile.filter.Utilities.REGEX_AIRPORT;
+
 public class Airport implements Comparable<Airport> {
 
   private final int numOfColumn;
@@ -19,32 +21,8 @@ public class Airport implements Comparable<Airport> {
   private final String airportField;
   private final String ourAirportsField;
 
-  public Airport(Integer id, String name, String region, String country, String iataCode,
-      String icaoCode, Double latitude, Double longitude, Integer height, String gmt, char code,
-      String timeZone, String airportField, String ourAirportsField, int numOfColumn) {
-    this.id = id;
-    this.name = name;
-    this.region = region;
-    this.country = country;
-    this.iataCode = iataCode;
-    this.icaoCode = icaoCode;
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.height = height;
-    this.gmt = gmt;
-    this.code = code;
-    this.timeZone = timeZone;
-    this.airportField = airportField;
-    this.ourAirportsField = ourAirportsField;
-    this.numOfColumn = numOfColumn;
-  }
-
   public Airport(String line, int numOfColumn) {
-    String[] fields = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-
-    if (fields.length != 14) {
-      throw new RuntimeException("Invalid csv line " + line);
-    }
+    String[] fields = line.split(REGEX_AIRPORT, -1);
 
     this.id = Integer.parseInt(fields[0]);
     this.name = fields[1];
