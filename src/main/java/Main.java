@@ -1,8 +1,10 @@
 import static com.anton.filterfile.filter.Utilities.defaultNumberOfColumn;
-import static com.anton.filterfile.filter.Utilities.pathAirportFile;
 
 import com.anton.filterfile.filter.AirportFilter;
+import com.anton.filterfile.pojo.Airport;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -18,17 +20,19 @@ public class Main {
 
     AirportFilter airportFilter = new AirportFilter();
     Map<Long, String> map = airportFilter.iterableFileInMap(numOfColumn);
-    System.out.println(pathAirportFile());
 
     long first = System.currentTimeMillis();
+    List<Airport> filterOfColumnList = new ArrayList<>();
+
     try {
-      airportFilter.filterOfColumn(map, subStr, numOfColumn).forEach(System.out::println);
+      filterOfColumnList = airportFilter.filterOfColumn(map, subStr, numOfColumn);
+      filterOfColumnList.forEach(System.out::println);
     } catch (FileNotFoundException e) {
       System.out.println(e.getMessage());
     }
     long end = System.currentTimeMillis() - first;
 
-    System.out.println("Количество найденных строк: " + map.size() + ". "
+    System.out.println("Количество найденных строк: " + filterOfColumnList.size() + ". "
         + "Время, затраченное на поиск: " + end + "мс.");
   }
 }

@@ -43,7 +43,7 @@ public class AirportFilter extends Filter {
   }
 
   @Override
-  public List<?> filterOfColumn(Map<Long, String> map, String subStr, int numOfColumn)
+  public List<Airport> filterOfColumn(Map<Long, String> map, String subStr, int numOfColumn)
       throws FileNotFoundException {
     RandomAccessFile randomAccessFile = new RandomAccessFile(pathAirportFile(), "r");
 
