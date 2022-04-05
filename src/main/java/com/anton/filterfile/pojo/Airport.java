@@ -109,7 +109,7 @@ public class Airport implements Comparable<Airport> {
 
   @Override
   public int compareTo(Airport airport) {
-    switch (numOfColumn + 1) {
+    switch (numOfColumn) {
       case 1:
         return airport.id.compareTo(id);
       case 2:
