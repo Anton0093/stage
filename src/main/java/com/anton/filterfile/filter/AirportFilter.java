@@ -19,10 +19,9 @@ public class AirportFilter extends Filter {
   public Map<Long, String> iterableFileInMap(int numberOfColumn) {
     Map<Long, String> fieldMap = new LinkedHashMap<>();
 
-    long pointer;
-
     try(RandomAccessFile randomAccessFile = new RandomAccessFile(pathAirportFile(), "r")) {
 
+      long pointer;
       String line;
 
       while (true) {
@@ -41,8 +40,7 @@ public class AirportFilter extends Filter {
   }
 
   @Override
-  public List<Airport> filterOfColumn(Map<Long, String> map, String subStr, int numOfColumn)
-      throws FileNotFoundException {
+  public List<Airport> filterOfColumn(Map<Long, String> map, String subStr, int numOfColumn) throws FileNotFoundException {
     RandomAccessFile randomAccessFile = new RandomAccessFile(pathAirportFile(), "r");
 
     return map
